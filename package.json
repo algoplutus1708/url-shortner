@@ -1,0 +1,30 @@
+{
+  "name": "urlshortner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/algoplutus1708/url-shortner.git"
+  },
+  "author": "Swastick Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/algoplutus1708/url-shortner/issues"
+  },
+  "homepage": "https://github.com/algoplutus1708/url-shortner#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "id": "^0.0.0",
+    "mongoose": "^8.5.3",
+    "nano": "^10.1.4",
+    "nanoid": "^5.0.7",
+    "nodemon": "^3.1.4"
+  }
+}
