@@ -3,29 +3,37 @@ import urlRoute from "./src/routers/url.router.js"
 import connectDB from "./src/db/connect.js"
 import {URL} from "./src/models/url.models.js"
 import path from "path"
+import staticRoute from "./src/routers/staticRouter.routes.js"
+
+
 
 const app= express()
 const PORT = 8000
 
 //EJS
 app.set("view engine", "ejs")
-app.set("views", path.resolve("./views")) // We have to import path module
+app.set("views", path.resolve("./src/views")) // We have to import path module
 
 
-//Checking EJS
-app.get("/tets", async(req,res)=>{
+//Checking EJS - Server Side Rendering (SSR)
+app.get("/tests", async(req,res)=>{
     const allUrls = await URL.find({})
-    return res.render("home")
+    return res.render("home",{
+        urls:allUrls,
+    })
 })
 
 
 //Middleware
-app.use(express.json())
+app.use(express.json()) // To parse json data
+app.use(express.urlencoded({extended:false}))
 
 //Database Connect
 connectDB()
 
 //Routes
+//For EJS - Static Router
+app.use("/",staticRoute)
 app.use("/url",urlRoute)
 
 app.get("/:shortId", async (req, res) => {
