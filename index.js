@@ -28,19 +28,26 @@ connectDB()
 //Routes
 app.use("/url",urlRoute)
 
-app.get("/:shortId",async (req,res)=>{
-    const shortId = req.params.shortId
-    const entry = await URL.findOneAndUpdate({
-        shortId: shortId
-    }, {
-        $push:{
-        visitHistory: {
-            timestamp: Date.now()
+app.get("/:shortId", async (req, res) => {
+    const shortId = req.params.shortId;
+    const entry = await URL.findOneAndUpdate(
+        {
+            shortId: shortId
+        },
+        {
+            $push: {
+                visitHistory: {
+                    timestamp: Date.now()
+                }
+            }
         }
-    }}
-    )
-    res.redirect(entry.redirectURL)
-})
+    );
+    if (entry) {
+        res.redirect(entry.redirectURL);
+    } else {
+        res.status(404).send("URL not found");
+    }
+});
 app.listen(PORT,()=>{
     console.log(`Server started at ${PORT}`)
 })
